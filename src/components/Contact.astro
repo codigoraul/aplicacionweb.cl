@@ -11,11 +11,12 @@
     </div>
 
     <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-10">
-      <form class="space-y-6" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="contact" />
+      <div id="form-message" class="hidden mb-6 p-4 rounded-lg"></div>
+      
+      <form id="contact-form" class="space-y-6" method="POST" action="/contacto.php">
         <p class="hidden">
           <label>
-            No llenar si eres humano: <input name="bot-field" />
+            No llenar si eres humano: <input name="bot-field" tabindex="-1" autocomplete="off" />
           </label>
         </p>
 
@@ -161,3 +162,67 @@
     </div>
   </div>
 </section>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const formMessage = document.getElementById('form-message');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalText = submitButton?.textContent || 'Enviar mensaje →';
+    
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Enviando...';
+    }
+
+    // Ocultar mensaje anterior
+    formMessage?.classList.add('hidden');
+
+    const formData = new FormData(form as HTMLFormElement);
+
+    try {
+      const response = await fetch('/contacto.php', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Mostrar mensaje de éxito
+        if (formMessage) {
+          formMessage.className = 'mb-6 p-4 rounded-lg bg-green-50 border border-green-200 text-green-800';
+          formMessage.textContent = data.message;
+          formMessage.classList.remove('hidden');
+        }
+        // Limpiar formulario
+        (form as HTMLFormElement).reset();
+      } else {
+        // Mostrar mensaje de error
+        if (formMessage) {
+          formMessage.className = 'mb-6 p-4 rounded-lg bg-red-50 border border-red-200 text-red-800';
+          formMessage.textContent = data.message;
+          formMessage.classList.remove('hidden');
+        }
+      }
+    } catch (error) {
+      // Error de red
+      if (formMessage) {
+        formMessage.className = 'mb-6 p-4 rounded-lg bg-red-50 border border-red-200 text-red-800';
+        formMessage.textContent = 'Error al enviar el mensaje. Por favor intenta nuevamente.';
+        formMessage.classList.remove('hidden');
+      }
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+      }
+      
+      // Scroll al mensaje
+      formMessage?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  });
+</script>

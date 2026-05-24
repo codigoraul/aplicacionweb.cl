@@ -5,6 +5,8 @@
     <a href="/">
       <img src="/logo-app-web.svg" alt="Aplicación Web" class="h-12" />
     </a>
+    
+    <!-- Desktop Menu -->
     <div class="hidden md:flex items-center gap-8">
       <a href="#rubros"        class="text-slate-700 font-semibold text-sm hover:text-cyan-600 transition-colors">Rubros</a>
       <a href="#como-funciona" class="text-slate-700 font-semibold text-sm hover:text-cyan-600 transition-colors">Cómo funciona</a>
@@ -16,5 +18,79 @@
         Contáctanos
       </a>
     </div>
+
+    <!-- Mobile Menu Button -->
+    <button
+      id="mobile-menu-button"
+      class="md:hidden flex flex-col gap-1.5 p-2 hover:bg-slate-100 rounded-lg transition-colors"
+      aria-label="Abrir menú"
+    >
+      <span class="w-6 h-0.5 bg-slate-700 transition-all duration-300"></span>
+      <span class="w-6 h-0.5 bg-slate-700 transition-all duration-300"></span>
+      <span class="w-6 h-0.5 bg-slate-700 transition-all duration-300"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-lg"
+  >
+    <div class="flex flex-col px-[6%] py-4 gap-3">
+      <a href="#rubros" class="text-slate-700 font-semibold text-base py-2 hover:text-cyan-600 transition-colors mobile-menu-link">Rubros</a>
+      <a href="#como-funciona" class="text-slate-700 font-semibold text-base py-2 hover:text-cyan-600 transition-colors mobile-menu-link">Cómo funciona</a>
+      <a href="#precios" class="text-slate-700 font-semibold text-base py-2 hover:text-cyan-600 transition-colors mobile-menu-link">Precios</a>
+      <a
+        href="#contacto"
+        class="bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-bold text-base px-5 py-3 rounded-full hover:opacity-90 transition-opacity text-center mt-2 mobile-menu-link"
+      >
+        Contáctanos
+      </a>
+    </div>
   </div>
 </nav>
+
+<script>
+  const menuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuLinks = document.querySelectorAll('.mobile-menu-link');
+
+  menuButton?.addEventListener('click', () => {
+    const isOpen = !mobileMenu?.classList.contains('hidden');
+    
+    if (isOpen) {
+      mobileMenu?.classList.add('hidden');
+      menuButton.setAttribute('aria-label', 'Abrir menú');
+    } else {
+      mobileMenu?.classList.remove('hidden');
+      menuButton.setAttribute('aria-label', 'Cerrar menú');
+    }
+
+    // Animar el botón hamburguesa
+    const spans = menuButton.querySelectorAll('span');
+    if (isOpen) {
+      spans[0].style.transform = 'rotate(0) translateY(0)';
+      spans[1].style.opacity = '1';
+      spans[2].style.transform = 'rotate(0) translateY(0)';
+    } else {
+      spans[0].style.transform = 'rotate(45deg) translateY(8px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translateY(-8px)';
+    }
+  });
+
+  // Cerrar menú al hacer clic en un enlace
+  menuLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+      menuButton?.setAttribute('aria-label', 'Abrir menú');
+      
+      const spans = menuButton?.querySelectorAll('span');
+      if (spans) {
+        spans[0].style.transform = 'rotate(0) translateY(0)';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'rotate(0) translateY(0)';
+      }
+    });
+  });
+</script>
