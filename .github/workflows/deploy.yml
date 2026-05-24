@@ -24,12 +24,14 @@ jobs:
       - name: Build Astro site
         run: npm run build
       
-      - name: Deploy via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local_path: './dist/*'
-          remote_path: '/home/aplicac1/public_html'
-          sftp_only: true
+          port: 21
+          protocol: ftp
+          local-dir: ./dist/
+          server-dir: /public_html/
+          dangerous-clean-slate: false
