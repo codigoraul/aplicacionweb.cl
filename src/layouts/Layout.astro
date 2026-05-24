@@ -2,12 +2,34 @@
 interface Props {
   title?: string;
   description?: string;
+  canonical?: string;
 }
 
 const {
-  title = 'Aplicación Web – Apps para tu negocio',
-  description = 'Desarrollamos aplicaciones web simples, rápidas y económicas para talleres mecánicos, peluquerías caninas, gimnasios y muchos rubros más.',
+  title = 'Aplicación Web Chile – Apps para tu negocio | aplicacionweb.cl',
+  description = 'Desarrollamos aplicaciones web económicas para mecánicas, peluquerías caninas, gimnasios, barberías y más rubros. Primer mes gratis. Entrega en 7 días.',
+  canonical = 'https://aplicacionweb.cl',
 } = Astro.props;
+
+const keywords = [
+  'diseño aplicaciones web Chile',
+  'app web empresa',
+  'diseño app empresa Chile',
+  'apps web pymes',
+  'app web reservas',
+  'app web barberías',
+  'app web mecánica',
+  'app web peluquería canina',
+  'app web gimnasio',
+  'apps web distintos rubros',
+  'apps web económicas Chile',
+  'aplicaciones web pequeñas empresas',
+  'digitalizar negocio Chile',
+  'software pymes Chile',
+  'aplicacionweb.cl',
+].join(', ');
+
+const ogImage = 'https://aplicacionweb.cl/og-image.png';
 ---
 
 <!doctype html>
@@ -15,16 +37,92 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
+
+    <!-- SEO básico -->
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content="aplicacionweb.cl" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_CL" />
+    <meta property="og:site_name" content="aplicacionweb.cl" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonical} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
-    <style>
-      html {
-        scroll-behavior: smooth;
+
+    <!-- Sitemap -->
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+    <!-- JSON-LD: Datos estructurados de negocio -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "aplicacionweb.cl",
+        "url": "https://aplicacionweb.cl",
+        "description": "Desarrollamos aplicaciones web económicas para mecánicas, peluquerías caninas, gimnasios, barberías y más rubros en Chile.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "App Web",
+            "price": "0",
+            "priceCurrency": "CLP",
+            "description": "Primer mes completamente gratis. Luego $22.000/mes.",
+            "availability": "https://schema.org/InStock"
+          },
+          {
+            "@type": "Offer",
+            "name": "Diseño Personalizado + App Web",
+            "price": "100000",
+            "priceCurrency": "CLP",
+            "description": "Diseño personalizado en 2 cuotas de $100.000 + $22.000/mes.",
+            "availability": "https://schema.org/InStock"
+          }
+        ],
+        "provider": {
+          "@type": "Organization",
+          "name": "aplicacionweb.cl",
+          "url": "https://aplicacionweb.cl",
+          "areaServed": "CL",
+          "knowsAbout": [
+            "diseño de aplicaciones web",
+            "apps para mecánicas",
+            "apps para peluquerías caninas",
+            "apps para gimnasios",
+            "apps para barberías",
+            "apps para pymes Chile"
+          ]
+        }
       }
+    </script>
+
+    <style>
+      html { scroll-behavior: smooth; }
     </style>
   </head>
   <body class="font-sans bg-white text-slate-900 antialiased">

@@ -1,0 +1,163 @@
+---
+---
+<section id="contacto" class="px-[6%] py-20 bg-gradient-to-br from-[#0a1628] to-[#0d2137]">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="inline-block bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-3">
+        Contáctanos
+      </span>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-white">¿Listo para digitalizar tu negocio?</h2>
+      <p class="text-slate-400 mt-2 text-lg">Completa el formulario y te contactaremos en menos de 24 horas.</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-10">
+      <form class="space-y-6" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden">
+          <label>
+            No llenar si eres humano: <input name="bot-field" />
+          </label>
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="nombre" class="block text-sm font-semibold text-slate-900 mb-2">
+              Nombre completo <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              required
+              class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 outline-none transition-all text-slate-900"
+              placeholder="Juan Pérez"
+            />
+          </div>
+
+          <div>
+            <label for="telefono" class="block text-sm font-semibold text-slate-900 mb-2">
+              Teléfono <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="tel"
+              id="telefono"
+              name="telefono"
+              required
+              class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 outline-none transition-all text-slate-900"
+              placeholder="+56 9 1234 5678"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-semibold text-slate-900 mb-2">
+            Email <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 outline-none transition-all text-slate-900"
+            placeholder="juan@ejemplo.cl"
+          />
+        </div>
+
+        <div>
+          <label for="rubro" class="block text-sm font-semibold text-slate-900 mb-2">
+            Rubro de tu negocio <span class="text-red-500">*</span>
+          </label>
+          <select
+            id="rubro"
+            name="rubro"
+            required
+            class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 outline-none transition-all text-slate-900"
+          >
+            <option value="">Selecciona un rubro</option>
+            <option value="mecanica">Taller Mecánico</option>
+            <option value="peluqueria">Peluquería Canina</option>
+            <option value="gimnasio">Gimnasio</option>
+            <option value="salon">Salón de Belleza</option>
+            <option value="restaurante">Restaurante</option>
+            <option value="clinica">Clínica Veterinaria</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="plan" class="block text-sm font-semibold text-slate-900 mb-2">
+            Plan de interés
+          </label>
+          <select
+            id="plan"
+            name="plan"
+            class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 outline-none transition-all text-slate-900"
+          >
+            <option value="app-web">APP WEB (1er mes gratis)</option>
+            <option value="diseno-personalizado">Diseño Personalizado + APP</option>
+            <option value="no-seguro">No estoy seguro</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="mensaje" class="block text-sm font-semibold text-slate-900 mb-2">
+            Mensaje
+          </label>
+          <textarea
+            id="mensaje"
+            name="mensaje"
+            rows="4"
+            class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 outline-none transition-all text-slate-900 resize-none"
+            placeholder="Cuéntanos sobre tu negocio y qué necesitas..."
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-bold py-4 rounded-xl hover:opacity-90 transition-all shadow-lg hover:shadow-xl text-lg"
+        >
+          Enviar mensaje →
+        </button>
+
+        <p class="text-center text-slate-500 text-sm">
+          Al enviar este formulario aceptas que te contactemos por WhatsApp, email o teléfono.
+        </p>
+      </form>
+    </div>
+
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+      <div class="bg-white/5 border border-cyan-500/20 rounded-xl p-6">
+        <div class="w-12 h-12 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        </div>
+        <h3 class="text-white font-bold mb-1">WhatsApp</h3>
+        <p class="text-slate-400 text-sm">Respuesta inmediata</p>
+        <a href="https://wa.me/56912345678" target="_blank" class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold mt-2 inline-block">
+          +56 9 1234 5678
+        </a>
+      </div>
+
+      <div class="bg-white/5 border border-cyan-500/20 rounded-xl p-6">
+        <div class="w-12 h-12 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+        </div>
+        <h3 class="text-white font-bold mb-1">Email</h3>
+        <p class="text-slate-400 text-sm">Respuesta en 24h</p>
+        <a href="mailto:contacto@aplicacionweb.cl" class="text-cyan-400 hover:text-cyan-300 text-sm font-semibold mt-2 inline-block">
+          contacto@aplicacionweb.cl
+        </a>
+      </div>
+
+      <div class="bg-white/5 border border-cyan-500/20 rounded-xl p-6">
+        <div class="w-12 h-12 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        </div>
+        <h3 class="text-white font-bold mb-1">Horario</h3>
+        <p class="text-slate-400 text-sm">Lunes a Viernes</p>
+        <p class="text-cyan-400 text-sm font-semibold mt-2">
+          9:00 - 18:00
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
