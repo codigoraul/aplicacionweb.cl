@@ -1,0 +1,18 @@
+---
+const stats = [
+  { num: '+15',   label: 'Rubros disponibles' },
+  { num: '7 días', label: 'Tiempo de entrega' },
+  { num: '100%',  label: 'Personalizable' },
+  { num: '24/7',  label: 'Soporte incluido' },
+];
+---
+<div class="bg-gradient-to-r from-[#0d2137] to-[#112a42] border-t border-cyan-500/20 px-[6%] py-10 text-center w-full">
+  <div class="max-w-7xl mx-auto flex flex-wrap justify-center gap-x-16 gap-y-6 w-full">
+    {stats.map(s => (
+      <div>
+        <div class="text-3xl font-extrabold bg-gradient-to-r from-cyan-300 to-purple-400 bg-clip-text text-transparent">{s.num}</div>
+        <div class="text-sm text-blue-300 mt-1">{s.label}</div>
+      </div>
+    ))}
+  </div>
+</div>

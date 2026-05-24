@@ -1,0 +1,113 @@
+---
+const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+const rubros = [
+  {
+    title: 'Mecánica Automotriz',
+    desc: 'Gestiona citas, órdenes de trabajo, clientes y stock de repuestos.',
+    img: 'mecanica.png',
+    color: 'from-sky-700 to-[#0a1628]',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+    features: ['Agenda de citas online', 'Historial por vehículo', 'Presupuestos digitales', 'Recordatorios automáticos'],
+    tag: 'Disponible', tagNew: false,
+  },
+  {
+    title: 'Peluquería Canina',
+    desc: 'Reservas online, ficha de cada mascota y notificaciones a los dueños.',
+    img: 'peluqueria.png',
+    color: 'from-pink-700 to-[#0a1628]',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>`,
+    features: ['Reservas por WhatsApp o web', 'Ficha clínica de mascota', 'Cobro y facturación', 'Galería de antes/después'],
+    tag: 'Disponible', tagNew: false,
+  },
+  {
+    title: 'Gimnasios & Fitness',
+    desc: 'Control de membresías, clases grupales y seguimiento de asistencia.',
+    img: 'gimnasio.png',
+    color: 'from-emerald-700 to-[#0a1628]',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
+    features: ['Membresías y pagos', 'Reserva de clases', 'App para socios', 'Control de acceso'],
+    tag: 'Disponible', tagNew: false,
+  },
+  {
+    title: 'Salón de Belleza',
+    desc: 'Agenda, control de servicios por estilista y fidelización de clientes.',
+    img: 'salon.png',
+    color: 'from-amber-700 to-[#0a1628]',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
+    features: ['Agenda por estilista', 'Punto de venta', 'Programa de puntos', 'Reportes de ventas'],
+    tag: 'Nuevo', tagNew: true,
+  },
+  {
+    title: 'Restaurantes & Cafés',
+    desc: 'Pedidos online, carta digital y gestión de mesas en tiempo real.',
+    img: 'restaurante.png',
+    color: 'from-violet-700 to-[#0a1628]',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>`,
+    features: ['Carta digital con QR', 'Pedidos a domicilio', 'Gestión de mesas', 'Integración delivery'],
+    tag: 'Nuevo', tagNew: true,
+  },
+  {
+    title: 'Clínicas & Consultorios',
+    desc: 'Agenda médica, ficha de paciente y gestión de horas online.',
+    img: 'clinica.png',
+    color: 'from-cyan-700 to-[#0a1628]',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
+    features: ['Reserva de horas online', 'Ficha de paciente', 'Recetas digitales', 'Recordatorio de citas'],
+    tag: 'Disponible', tagNew: false,
+  },
+];
+---
+
+<section id="rubros" class="px-[6%] py-20 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="inline-block bg-gradient-to-r from-purple-100 to-cyan-100 border border-cyan-300/40 text-cyan-700 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-3">
+        Rubros
+      </span>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Una app para cada negocio</h2>
+      <p class="text-slate-500 mt-2 text-base">Elige tu rubro y te entregamos una aplicación lista para usar.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {rubros.map(r => (
+        <article class="group bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col hover:-translate-y-1.5 hover:shadow-[0_8px_32px_rgba(0,180,216,0.15)] hover:border-cyan-300/50 transition-all duration-300">
+
+          <div class="relative h-48 overflow-hidden">
+            {r.img ? (
+              <img
+                src={`/rubros/${r.img}`}
+                alt={r.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            ) : (
+              <div class={`w-full h-full bg-gradient-to-br ${r.color} flex items-center justify-center text-white/80`} set:html={r.svg} />
+            )}
+            <span class={`absolute top-3 right-3 text-xs font-bold px-2.5 py-1 rounded-full ${r.tagNew ? 'bg-purple-600 text-white' : 'bg-white/90 text-slate-600'}`}>
+              {r.tag}
+            </span>
+          </div>
+
+          <div class="p-5 flex flex-col gap-3 flex-1">
+            <h3 class="text-lg font-bold text-slate-900">{r.title}</h3>
+            <p class="text-sm text-slate-500">{r.desc}</p>
+            <ul class="flex flex-col gap-1.5 mt-1">
+              {r.features.map(f => (
+                <li class="flex items-center gap-2.5 text-sm text-slate-600">
+                  <span class="w-4 h-4 rounded bg-[#0a1628] text-cyan-400 flex items-center justify-center flex-shrink-0" set:html={checkIcon} />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a
+              href="#contacto"
+              class="mt-auto text-center text-sm font-bold text-[#0a1628] border border-slate-300 rounded-xl py-2.5 hover:bg-slate-50 hover:border-cyan-300 transition-colors"
+            >
+              Solicitar demo
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

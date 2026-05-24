@@ -1,0 +1,139 @@
+---
+const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+---
+
+<section id="precios" class="px-[6%] py-20 bg-slate-50">
+  <div class="text-center mb-12">
+    <span class="inline-block bg-gradient-to-r from-purple-100 to-cyan-100 border border-cyan-300/40 text-cyan-700 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-3">
+      Precios
+    </span>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Elige tu plan</h2>
+    <p class="text-slate-500 mt-2">Precios simples y transparentes en pesos chilenos. Sin costos ocultos.</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+
+    <!-- PLAN APP WEB -->
+    <div class="relative rounded-2xl flex flex-col overflow-hidden border-2 border-cyan-400 shadow-[0_8px_32px_rgba(0,180,216,0.12)] bg-white">
+
+      <div class="bg-gradient-to-r from-[#0a1628] to-[#0d2137] px-8 pt-8 pb-6">
+        <span class="inline-block bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-4">
+          Más popular
+        </span>
+        <h3 class="text-white font-extrabold text-2xl">APP WEB</h3>
+        <p class="text-slate-400 text-sm mt-1">Todo lo que necesitas para digitalizarte desde el primer día.</p>
+      </div>
+
+      <div class="px-8 py-6 flex flex-col gap-6 flex-1">
+
+        <div class="flex flex-col divide-y divide-slate-100 border border-slate-200 rounded-xl overflow-hidden">
+          <div class="flex items-start gap-4 p-4">
+            <div class="w-8 h-8 rounded-lg bg-[#0a1628] text-cyan-400 font-bold text-xs flex items-center justify-center flex-shrink-0 border border-cyan-500/30">
+              01
+            </div>
+            <div>
+              <p class="font-semibold text-slate-900 text-base">Primer mes — <span class="text-cyan-600 font-bold">completamente gratis</span></p>
+              <p class="text-slate-500 text-sm mt-0.5">Acceso completo sin pagar nada. Sin tarjeta de crédito requerida.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 p-4">
+            <div class="w-8 h-8 rounded-lg bg-[#0a1628] text-cyan-400 font-bold text-xs flex items-center justify-center flex-shrink-0 border border-cyan-500/30">
+              02
+            </div>
+            <div>
+              <p class="font-semibold text-slate-900 text-base">Desde el mes 2 — <span class="text-cyan-600 font-bold">$22.000 / mes</span></p>
+              <p class="text-slate-500 text-sm mt-0.5">Sin contrato de permanencia. Cancela cuando quieras.</p>
+            </div>
+          </div>
+        </div>
+
+        <ul class="flex flex-col gap-2.5">
+          {[
+            'Todos los rubros disponibles',
+            'Módulos y clientes ilimitados',
+            'App 100% responsive',
+            'Panel de estadísticas',
+            'Soporte por WhatsApp',
+            'Dominio propio incluido',
+          ].map(f => (
+            <li class="flex items-center gap-3 text-base text-slate-700">
+              <span class="w-5 h-5 rounded-md bg-[#0a1628] text-cyan-400 flex items-center justify-center flex-shrink-0" set:html={checkIcon} />
+              {f}
+            </li>
+          ))}
+        </ul>
+
+        <a
+          href="#contacto"
+          class="mt-auto text-center font-bold py-3.5 rounded-xl bg-gradient-to-r from-[#0a1628] to-[#0d2137] text-white border border-cyan-500/30 hover:border-cyan-400/60 hover:shadow-[0_0_20px_rgba(0,180,216,0.15)] transition-all text-sm tracking-wide"
+        >
+          Comenzar gratis
+        </a>
+      </div>
+    </div>
+
+    <!-- PLAN DISEÑO + APP -->
+    <div class="relative rounded-2xl flex flex-col overflow-hidden border border-slate-200 shadow-sm bg-white">
+
+      <div class="bg-gradient-to-r from-[#0a1628] to-[#112a42] px-8 pt-8 pb-6">
+        <span class="inline-block bg-purple-500/20 border border-purple-400/40 text-purple-300 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-4">
+          Diseño exclusivo
+        </span>
+        <h3 class="text-white font-extrabold text-2xl">Diseño Personalizado<br/><span class="text-cyan-400">+ APP WEB</span></h3>
+        <p class="text-slate-400 text-sm mt-1">Tu identidad visual única, construida desde cero.</p>
+      </div>
+
+      <div class="px-8 py-6 flex flex-col gap-6 flex-1">
+
+        <div class="flex flex-col divide-y divide-slate-100 border border-slate-200 rounded-xl overflow-hidden">
+          <div class="flex items-start gap-4 p-4">
+            <div class="w-8 h-8 rounded-lg bg-[#0a1628] text-purple-400 font-bold text-xs flex items-center justify-center flex-shrink-0 border border-purple-500/30">
+              01
+            </div>
+            <div>
+              <p class="font-semibold text-slate-900 text-base">Diseño a medida — <span class="text-purple-600 font-bold">2 cuotas de $100.000</span></p>
+              <p class="text-slate-500 text-sm mt-0.5">Wireframes, mockups y revisiones ilimitadas hasta que quede perfecto.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 p-4">
+            <div class="w-8 h-8 rounded-lg bg-[#0a1628] text-purple-400 font-bold text-xs flex items-center justify-center flex-shrink-0 border border-purple-500/30">
+              02
+            </div>
+            <div>
+              <p class="font-semibold text-slate-900 text-base">Luego — <span class="text-cyan-600 font-bold">$22.000 / mes</span></p>
+              <p class="text-slate-500 text-sm mt-0.5">Igual que el plan App Web, con tu diseño exclusivo.</p>
+            </div>
+          </div>
+        </div>
+
+        <ul class="flex flex-col gap-2.5">
+          {[
+            'Todo lo del plan App Web',
+            'Diseño 100% personalizado',
+            'Wireframes y mockups incluidos',
+            'Revisiones ilimitadas',
+            'Identidad visual única',
+            'Soporte prioritario',
+          ].map(f => (
+            <li class="flex items-center gap-3 text-base text-slate-700">
+              <span class="w-5 h-5 rounded-md bg-[#0a1628] text-cyan-400 flex items-center justify-center flex-shrink-0" set:html={checkIcon} />
+              {f}
+            </li>
+          ))}
+        </ul>
+
+        <a
+          href="#contacto"
+          class="mt-auto text-center font-bold py-3.5 rounded-xl border-2 border-[#0a1628] text-[#0a1628] hover:bg-[#0a1628] hover:text-white transition-all text-sm tracking-wide"
+        >
+          Solicitar diseño
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="text-center text-slate-400 text-xs mt-8 tracking-wide">
+    Sin contratos de permanencia &nbsp;&middot;&nbsp; Cancela cuando quieras &nbsp;&middot;&nbsp; Soporte en español incluido
+  </p>
+</section>

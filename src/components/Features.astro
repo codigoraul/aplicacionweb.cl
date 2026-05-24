@@ -1,0 +1,65 @@
+---
+const feats = [
+  {
+    bg: 'bg-sky-50',
+    color: 'text-sky-600',
+    title: '100% Responsive',
+    desc: 'Funciona en celular, tablet y computador sin instalar nada.',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
+  },
+  {
+    bg: 'bg-slate-100',
+    color: 'text-slate-700',
+    title: 'Seguro y confiable',
+    desc: 'HTTPS incluido, backups diarios y uptime garantizado del 99.9%.',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  },
+  {
+    bg: 'bg-cyan-50',
+    color: 'text-cyan-600',
+    title: 'Entrega rápida',
+    desc: 'Tu aplicación lista en 7 días hábiles desde que confirmas.',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  },
+  {
+    bg: 'bg-purple-50',
+    color: 'text-purple-600',
+    title: 'Tu identidad de marca',
+    desc: 'Colores, logo y estilo adaptados al 100% a tu negocio.',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>`,
+  },
+  {
+    bg: 'bg-slate-100',
+    color: 'text-slate-700',
+    title: 'Panel de estadísticas',
+    desc: 'Ve en tiempo real tus ventas, clientes y citas desde cualquier lugar.',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+  },
+  {
+    bg: 'bg-cyan-50',
+    color: 'text-cyan-600',
+    title: 'Soporte en español',
+    desc: 'Equipo disponible por WhatsApp y correo, de lunes a sábado.',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+  },
+];
+---
+<section class="px-[6%] py-20 bg-white">
+  <div class="text-center mb-12">
+    <span class="inline-block bg-gradient-to-r from-purple-100 to-cyan-100 border border-cyan-300/40 text-cyan-700 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-3">
+      Características
+    </span>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Todo lo que necesitas incluido</h2>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
+    {feats.map(f => (
+      <div class="flex gap-4 items-start bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:border-cyan-300/50 hover:shadow-md transition-all">
+        <div class={`w-11 h-11 rounded-xl ${f.bg} ${f.color} flex items-center justify-center flex-shrink-0`} set:html={f.svg} />
+        <div>
+          <h3 class="font-bold text-slate-900 mb-1">{f.title}</h3>
+          <p class="text-sm text-slate-500">{f.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
