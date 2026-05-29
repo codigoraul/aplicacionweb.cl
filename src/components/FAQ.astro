@@ -1,0 +1,87 @@
+---
+const faqs = [
+  {
+    question: "¿Cuánto cuesta una aplicación web para mi negocio en Chile?",
+    answer: "Una aplicación web para tu negocio cuesta desde $22.000 pesos chilenos mensuales, con el primer mes completamente gratis para ciertos rubros. Si necesitas diseño personalizado, son 2 pagos de $100.000 más la mensualidad."
+  },
+  {
+    question: "¿Qué incluye la aplicación web mensual?",
+    answer: "La app web incluye: gestión de clientes ilimitados, sistema de reservas, panel de estadísticas, diseño responsive para móviles, dominio propio, y soporte por WhatsApp. Todo sin límites de uso."
+  },
+  {
+    question: "¿Para qué rubros están disponibles las aplicaciones web?",
+    answer: "Tenemos aplicaciones web para talleres mecánicos, peluquerías caninas, gimnasios, salones de belleza, barberías, restaurantes, clínicas veterinarias y muchos otros rubros de servicios."
+  },
+  {
+    question: "¿Cuánto tiempo tarda en estar lista mi aplicación web?",
+    answer: "Tu aplicación web estará lista en 7 días hábiles. Si eliges diseño personalizado, el proceso toma 14 días incluyendo wireframes, mockups y revisiones."
+  },
+  {
+    question: "¿Necesito conocimientos técnicos para usar la aplicación?",
+    answer: "No necesitas conocimientos técnicos. La aplicación es intuitiva y fácil de usar. Además, incluimos capacitación inicial y soporte continuo por WhatsApp."
+  },
+  {
+    question: "¿Puedo cancelar el servicio cuando quiera?",
+    answer: "Sí, no hay contrato de permanencia. Puedes cancelar cuando quieras sin penalizaciones ni costos adicionales."
+  },
+  {
+    question: "¿La aplicación funciona en celulares?",
+    answer: "Sí, todas nuestras aplicaciones son 100% responsive y funcionan perfectamente en celulares, tablets y computadores."
+  },
+  {
+    question: "¿Qué diferencia hay entre APP WEB y Diseño Personalizado?",
+    answer: "APP WEB usa plantillas prediseñadas optimizadas para tu rubro (desde $22.000/mes). Diseño Personalizado crea una app única con tu identidad visual (2 pagos de $100.000 + $22.000/mes)."
+  }
+];
+---
+
+<section id="faq" class="px-[6%] py-20 bg-white">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="inline-block bg-gradient-to-r from-purple-100 to-cyan-100 border border-cyan-300/40 text-cyan-700 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-3">
+        Preguntas Frecuentes
+      </span>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">¿Tienes dudas?</h2>
+      <p class="text-slate-500 mt-2">Aquí respondemos las preguntas más comunes sobre nuestras aplicaciones web.</p>
+    </div>
+
+    <div class="space-y-4">
+      {faqs.map((faq, index) => (
+        <details class="group bg-slate-50 rounded-xl border border-slate-200 hover:border-cyan-300 transition-colors">
+          <summary class="flex items-center justify-between cursor-pointer p-6 font-semibold text-slate-900 text-base md:text-lg">
+            <span>{faq.question}</span>
+            <svg class="w-5 h-5 text-cyan-600 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </summary>
+          <div class="px-6 pb-6 text-slate-600 leading-relaxed">
+            {faq.answer}
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <div class="mt-12 text-center">
+      <p class="text-slate-600 mb-4">¿No encontraste tu respuesta?</p>
+      <a
+        href="#contacto"
+        class="inline-block bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-bold px-8 py-3 rounded-full hover:opacity-90 transition-opacity"
+      >
+        Contáctanos
+      </a>
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+})} />

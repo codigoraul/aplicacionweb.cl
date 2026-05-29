@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Bloquear archivos innecesarios para indexación
+Disallow: /node_modules/
+Disallow: /.astro/
+Disallow: /dist/
+
+# Sitemap
+Sitemap: https://aplicacionweb.cl/sitemap.xml
