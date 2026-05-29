@@ -24,6 +24,8 @@
       id="mobile-menu-button"
       class="md:hidden flex flex-col gap-1.5 p-2 hover:bg-slate-100 rounded-lg transition-colors"
       aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
     >
       <span class="w-6 h-0.5 bg-slate-700 transition-all duration-300"></span>
       <span class="w-6 h-0.5 bg-slate-700 transition-all duration-300"></span>
@@ -61,9 +63,11 @@
     if (isOpen) {
       mobileMenu?.classList.add('hidden');
       menuButton.setAttribute('aria-label', 'Abrir menú');
+      menuButton.setAttribute('aria-expanded', 'false');
     } else {
       mobileMenu?.classList.remove('hidden');
       menuButton.setAttribute('aria-label', 'Cerrar menú');
+      menuButton.setAttribute('aria-expanded', 'true');
     }
 
     // Animar el botón hamburguesa

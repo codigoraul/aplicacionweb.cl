@@ -14,8 +14,13 @@
     </div>
     <div>
       <h4 class="text-white font-semibold text-sm mb-3">Empresa</h4>
-      {['Cómo funciona','Precios','Soporte','Contacto'].map(l => (
-        <a href="#" class="block text-slate-400 text-sm mb-2 hover:text-cyan-400 transition-colors">{l}</a>
+      {[
+        { label: 'Cómo funciona', href: '#como-funciona' },
+        { label: 'Precios',       href: '#precios' },
+        { label: 'FAQ',           href: '#faq' },
+        { label: 'Contacto',      href: '#contacto' },
+      ].map(l => (
+        <a href={l.href} class="block text-slate-400 text-sm mb-2 hover:text-cyan-400 transition-colors">{l.label}</a>
       ))}
     </div>
   </div>
