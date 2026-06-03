@@ -1,6 +1,7 @@
 export const rubrosData = [
   {
     slug: 'barberias',
+    demo: 'https://aplicacionweb.cl/barberia-demo/',
     title: 'Barberías',
     titleSEO: 'Aplicación Web para Barberías en Chile | aplicacionweb.cl',
     desc: 'Sistema web para gestionar turnos, clientes y ventas de tu barbería.',
