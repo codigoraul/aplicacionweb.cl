@@ -1,0 +1,302 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { rubrosData } from '../data/rubros';
+
+export function getStaticPaths() {
+  return rubrosData.map(r => ({ params: { rubro: r.slug } }));
+}
+
+const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+const { rubro } = Astro.params;
+const data = rubrosData.find(r => r.slug === rubro)!;
+const canonical = `https://aplicacionweb.cl/${data.slug}`;
+---
+
+<Layout
+  title={data.titleSEO}
+  description={data.metaDesc}
+  canonical={canonical}
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    ...data.schema,
+    "url": canonical,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "CLP",
+      "description": "Primer mes gratis. Luego desde $22.000/mes.",
+      "availability": "https://schema.org/InStock"
+    },
+    "provider": {
+      "@type": "Organization",
+      "name": "aplicacionweb.cl",
+      "url": "https://aplicacionweb.cl",
+      "areaServed": "CL"
+    }
+  })} />
+
+  <Nav />
+
+  <main>
+
+    <!-- HERO -->
+    <section class={`bg-gradient-to-br ${data.color} px-[6%] pt-20 pb-16`}>
+      <div class="max-w-7xl mx-auto">
+        <a href="/" class="inline-flex items-center gap-2 text-white/60 text-sm mb-8 hover:text-white transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Volver al inicio
+        </a>
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="inline-block bg-white/10 border border-white/20 text-white/80 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-5">
+              {data.title}
+            </span>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-5">
+              {data.heroTitle}
+            </h1>
+            <p class="text-white/75 text-lg mb-8 leading-relaxed">
+              {data.heroSubtitle}
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <a href="/#contacto" class="bg-white text-[#0a1628] font-bold px-7 py-3.5 rounded-full hover:bg-cyan-50 transition-colors text-sm">
+                Solicitar demo gratis
+              </a>
+              <a href="#caracteristicas" class="border border-white/30 text-white font-semibold px-7 py-3.5 rounded-full hover:bg-white/10 transition-colors text-sm">
+                Ver características
+              </a>
+            </div>
+          </div>
+          <div class="relative hidden md:block">
+            <div class="rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+              <img src={data.img} alt={`App web para ${data.title} en Chile`} class="w-full h-72 object-cover" />
+            </div>
+            <div class="absolute -bottom-4 -left-4 bg-white rounded-2xl px-5 py-3 shadow-xl">
+              <p class="text-[#0a1628] font-extrabold text-sm">🎉 Primer mes gratis</p>
+              <p class="text-slate-500 text-xs mt-0.5">Sin contrato ni permanencia</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="bg-white border-b border-slate-100 px-[6%] py-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          {[
+            { n: '7 días', label: 'Tiempo de entrega' },
+            { n: '1 mes', label: 'Prueba gratis' },
+            { n: '$22.000', label: 'Desde / mes' },
+            { n: '100%', label: 'En la nube' },
+          ].map(s => (
+            <div>
+              <p class="text-2xl font-extrabold text-[#0a1628]">{s.n}</p>
+              <p class="text-slate-500 text-sm mt-1">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CARACTERÍSTICAS -->
+    <section id="caracteristicas" class="px-[6%] py-20 bg-slate-50">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block bg-gradient-to-r from-purple-100 to-cyan-100 border border-cyan-300/40 text-cyan-700 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-3">
+            Características
+          </span>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Todo lo que necesita tu {data.title.toLowerCase()}</h2>
+          <p class="text-slate-500 mt-2 max-w-xl mx-auto">Una aplicación diseñada específicamente para el rubro, lista para usar desde el primer día.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {data.features.map(f => (
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 hover:border-cyan-300/50 hover:shadow-md transition-all">
+              <div class="text-3xl mb-4">{f.icon}</div>
+              <h3 class="font-bold text-slate-900 text-base mb-2">{f.title}</h3>
+              <p class="text-slate-500 text-sm leading-relaxed">{f.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CÓMO FUNCIONA -->
+    <section class="px-[6%] py-20 bg-white">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block bg-gradient-to-r from-purple-100 to-cyan-100 border border-cyan-300/40 text-cyan-700 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-3">
+            Proceso
+          </span>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">En 3 pasos empiezas</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+          {[
+            { n: '01', title: 'Solicita tu demo', desc: 'Cuéntanos sobre tu negocio y te mostramos la app funcionando en tiempo real.' },
+            { n: '02', title: 'Recibe tu app en 7 días', desc: 'Configuramos todo para tu negocio. Sin tecnicismos, sin complicaciones.' },
+            { n: '03', title: 'Prueba 1 mes gratis', desc: 'Úsala con tus clientes reales. Si te convence, continúas por $22.000/mes.' },
+          ].map(step => (
+            <div class="text-center">
+              <div class="w-14 h-14 rounded-2xl bg-[#0a1628] text-cyan-400 font-extrabold text-xl flex items-center justify-center mx-auto mb-4 border border-cyan-500/30">
+                {step.n}
+              </div>
+              <h3 class="font-bold text-slate-900 text-base mb-2">{step.title}</h3>
+              <p class="text-slate-500 text-sm leading-relaxed">{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- PRECIOS -->
+    <section id="precios" class="px-[6%] py-20 bg-slate-50">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block bg-gradient-to-r from-purple-100 to-cyan-100 border border-cyan-300/40 text-cyan-700 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-3">
+            Precios
+          </span>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Elige tu plan</h2>
+          <p class="text-slate-500 mt-2">Sin contratos. Sin costos ocultos. En pesos chilenos.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="rounded-2xl flex flex-col overflow-hidden border-2 border-cyan-400 shadow-[0_8px_32px_rgba(0,180,216,0.12)] bg-white">
+            <div class="bg-gradient-to-r from-[#0a1628] to-[#0d2137] px-8 pt-8 pb-6">
+              <span class="inline-block bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-4">Más popular</span>
+              <h3 class="text-white font-extrabold text-2xl">APP WEB</h3>
+              <p class="text-slate-400 text-sm mt-1">Para {data.title.toLowerCase()} que quieren crecer.</p>
+            </div>
+            <div class="px-8 py-6 flex flex-col gap-5 flex-1">
+              <div class="flex flex-col divide-y divide-slate-100 border border-slate-200 rounded-xl overflow-hidden">
+                <div class="flex items-start gap-4 p-4">
+                  <div class="w-8 h-8 rounded-lg bg-[#0a1628] text-cyan-400 font-bold text-xs flex items-center justify-center flex-shrink-0 border border-cyan-500/30">01</div>
+                  <div>
+                    <p class="font-semibold text-slate-900 text-sm">Prueba gratis — <span class="text-cyan-600 font-bold">1 mes</span></p>
+                    <p class="text-slate-500 text-xs mt-0.5">Sin tarjeta de crédito.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4 p-4">
+                  <div class="w-8 h-8 rounded-lg bg-[#0a1628] text-cyan-400 font-bold text-xs flex items-center justify-center flex-shrink-0 border border-cyan-500/30">02</div>
+                  <div>
+                    <p class="font-semibold text-slate-900 text-sm">Desde <span class="text-cyan-600 font-bold">$22.000 / mes</span></p>
+                    <p class="text-slate-500 text-xs mt-0.5">Cancela cuando quieras.</p>
+                  </div>
+                </div>
+              </div>
+              <ul class="flex flex-col gap-2">
+                {['Módulos y clientes ilimitados', 'App 100% responsive', 'Soporte por WhatsApp', 'Dominio propio incluido', 'Actualizaciones incluidas'].map(f => (
+                  <li class="flex items-center gap-2.5 text-sm text-slate-700">
+                    <span class="w-5 h-5 rounded-md bg-[#0a1628] text-cyan-400 flex items-center justify-center flex-shrink-0" set:html={checkIcon} />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a href="/#contacto" class="mt-auto text-center font-bold py-3.5 rounded-xl bg-gradient-to-r from-[#0a1628] to-[#0d2137] text-white border border-cyan-500/30 hover:border-cyan-400/60 transition-all text-sm">
+                Comenzar gratis
+              </a>
+            </div>
+          </div>
+          <div class="rounded-2xl flex flex-col overflow-hidden border border-slate-200 shadow-sm bg-white">
+            <div class="bg-gradient-to-r from-[#0a1628] to-[#112a42] px-8 pt-8 pb-6">
+              <span class="inline-block bg-purple-500/20 border border-purple-400/40 text-purple-300 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-4">Diseño exclusivo</span>
+              <h3 class="text-white font-extrabold text-2xl">Diseño Personalizado<br/><span class="text-cyan-400">+ APP WEB</span></h3>
+              <p class="text-slate-400 text-sm mt-1">Tu identidad visual única.</p>
+            </div>
+            <div class="px-8 py-6 flex flex-col gap-5 flex-1">
+              <div class="flex flex-col divide-y divide-slate-100 border border-slate-200 rounded-xl overflow-hidden">
+                <div class="flex items-start gap-4 p-4">
+                  <div class="w-8 h-8 rounded-lg bg-[#0a1628] text-purple-400 font-bold text-xs flex items-center justify-center flex-shrink-0 border border-purple-500/30">01</div>
+                  <div>
+                    <p class="font-semibold text-slate-900 text-sm">Diseño — <span class="text-purple-600 font-bold">2 cuotas de $100.000</span></p>
+                    <p class="text-slate-500 text-xs mt-0.5">Revisiones ilimitadas.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4 p-4">
+                  <div class="w-8 h-8 rounded-lg bg-[#0a1628] text-purple-400 font-bold text-xs flex items-center justify-center flex-shrink-0 border border-purple-500/30">02</div>
+                  <div>
+                    <p class="font-semibold text-slate-900 text-sm">Luego — <span class="text-cyan-600 font-bold">Desde $22.000 / mes</span></p>
+                    <p class="text-slate-500 text-xs mt-0.5">Con tu diseño exclusivo.</p>
+                  </div>
+                </div>
+              </div>
+              <ul class="flex flex-col gap-2">
+                {['Todo lo del plan App Web', 'Diseño 100% personalizado', 'Wireframes y mockups', 'Identidad visual única', 'Soporte prioritario'].map(f => (
+                  <li class="flex items-center gap-2.5 text-sm text-slate-700">
+                    <span class="w-5 h-5 rounded-md bg-[#0a1628] text-cyan-400 flex items-center justify-center flex-shrink-0" set:html={checkIcon} />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a href="/#contacto" class="mt-auto text-center font-bold py-3.5 rounded-xl border-2 border-[#0a1628] text-[#0a1628] hover:bg-[#0a1628] hover:text-white transition-all text-sm">
+                Solicitar diseño
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="px-[6%] py-20 bg-white">
+      <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-block bg-gradient-to-r from-purple-100 to-cyan-100 border border-cyan-300/40 text-cyan-700 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-3">
+            FAQ
+          </span>
+          <h2 class="text-3xl font-extrabold text-slate-900">Preguntas frecuentes</h2>
+        </div>
+        <div class="flex flex-col gap-4">
+          {data.faqs.map(faq => (
+            <details class="group bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden">
+              <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer font-semibold text-slate-900 text-sm select-none list-none">
+                {faq.q}
+                <svg class="w-4 h-4 text-slate-400 flex-shrink-0 group-open:rotate-180 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              </summary>
+              <p class="px-6 pb-5 text-slate-500 text-sm leading-relaxed">{faq.a}</p>
+            </details>
+          ))}
+          <details class="group bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden">
+            <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer font-semibold text-slate-900 text-sm select-none list-none">
+              ¿En cuánto tiempo está lista la app?
+              <svg class="w-4 h-4 text-slate-400 flex-shrink-0 group-open:rotate-180 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <p class="px-6 pb-5 text-slate-500 text-sm leading-relaxed">En 7 días hábiles desde que confirmas el pedido. Te la entregamos configurada y lista para usar.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class={`bg-gradient-to-br ${data.color} px-[6%] py-16 text-center`}>
+      <div class="max-w-2xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">
+          ¿Listo para digitalizar tu {data.title.toLowerCase()}?
+        </h2>
+        <p class="text-white/75 mb-8 text-lg">Solicita tu demo gratis hoy. Sin compromiso, sin tarjeta de crédito.</p>
+        <a href="/#contacto" class="inline-block bg-white text-[#0a1628] font-bold px-10 py-4 rounded-full hover:bg-cyan-50 transition-colors text-base shadow-lg">
+          Solicitar demo gratis →
+        </a>
+        <p class="text-white/50 text-sm mt-5">Primer mes gratis · Entrega en 7 días · Soporte en español</p>
+      </div>
+    </section>
+
+    <!-- OTROS RUBROS -->
+    <section class="px-[6%] py-16 bg-white">
+      <div class="max-w-7xl mx-auto">
+        <h3 class="text-center text-lg font-bold text-slate-700 mb-8">También tenemos app para otros rubros</h3>
+        <div class="flex flex-wrap justify-center gap-3">
+          {rubrosData.filter(r => r.slug !== data.slug).map(r => (
+            <a href={`/${r.slug}`} class="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 text-sm font-medium hover:border-cyan-300 hover:text-cyan-700 hover:bg-cyan-50 transition-all">
+              {r.title}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

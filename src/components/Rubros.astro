@@ -3,6 +3,7 @@ const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12
 
 const rubros = [
   {
+    slug: 'mecanica',
     title: 'Mecánica Automotriz',
     desc: 'Gestiona citas, órdenes de trabajo, clientes y stock de repuestos.',
     img: 'mecanica.webp',
@@ -12,6 +13,7 @@ const rubros = [
     tag: 'Disponible', tagNew: false,
   },
   {
+    slug: 'peluqueria-canina',
     title: 'Peluquería Canina',
     desc: 'Reservas online, ficha de cada mascota y notificaciones a los dueños.',
     img: 'peluqueria-canina.webp',
@@ -21,6 +23,7 @@ const rubros = [
     tag: 'Disponible', tagNew: false,
   },
   {
+    slug: 'gimnasios',
     title: 'Gimnasios & Fitness',
     desc: 'Control de membresías, clases grupales y seguimiento de asistencia.',
     img: 'gimnasio.webp',
@@ -30,6 +33,7 @@ const rubros = [
     tag: 'Disponible', tagNew: false,
   },
   {
+    slug: 'salon-de-belleza',
     title: 'Salón de Belleza',
     desc: 'Agenda, control de servicios por estilista y fidelización de clientes.',
     img: 'salon.png',
@@ -39,15 +43,17 @@ const rubros = [
     tag: 'Nuevo', tagNew: true,
   },
   {
-    title: 'Restaurantes & Cafés',
-    desc: 'Pedidos online, carta digital y gestión de mesas en tiempo real.',
-    img: 'restaurante.png',
+    slug: 'barberias',
+    title: 'Barberías',
+    desc: 'Agenda de turnos, control de servicios por barbero y fidelización de clientes.',
+    img: 'barberia.webp',
     color: 'from-violet-700 to-[#0a1628]',
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg>`,
-    features: ['Carta digital con QR', 'Pedidos a domicilio', 'Gestión de mesas', 'Integración delivery'],
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>`,
+    features: ['Reservas online 24/7', 'Agenda por barbero', 'Programa de fidelización', 'Recordatorios automáticos'],
     tag: 'Nuevo', tagNew: true,
   },
   {
+    slug: 'clinicas',
     title: 'Clínicas & Consultorios',
     desc: 'Agenda médica, ficha de paciente y gestión de horas online.',
     img: 'clinica.png',
@@ -71,7 +77,8 @@ const rubros = [
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {rubros.map(r => (
-        <article class="group bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col hover:-translate-y-1.5 hover:shadow-[0_8px_32px_rgba(0,180,216,0.15)] hover:border-cyan-300/50 transition-all duration-300">
+        <article class="group relative bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col hover:-translate-y-1.5 hover:shadow-[0_8px_32px_rgba(0,180,216,0.15)] hover:border-cyan-300/50 transition-all duration-300">
+          <a href={`/${r.slug}`} class="absolute inset-0 z-10" aria-label={`Ver app para ${r.title}`}></a>
 
           <div class="relative h-48 overflow-hidden">
             {r.img ? (
@@ -99,12 +106,20 @@ const rubros = [
                 </li>
               ))}
             </ul>
-            <a
-              href="#contacto"
-              class="mt-auto text-center text-sm font-bold text-[#0a1628] border border-slate-300 rounded-xl py-2.5 hover:bg-slate-50 hover:border-cyan-300 transition-colors"
-            >
-              Solicitar demo
-            </a>
+            <div class="relative z-20 mt-auto flex gap-2">
+              <a
+                href="#contacto"
+                class="flex-1 text-center text-sm font-bold text-white bg-[#0a1628] rounded-xl py-2.5 hover:bg-slate-800 transition-colors"
+              >
+                Solicitar demo
+              </a>
+              <a
+                href={`/${r.slug}`}
+                class="flex-1 text-center text-sm font-semibold text-[#0a1628] border border-slate-300 rounded-xl py-2.5 hover:bg-slate-50 hover:border-cyan-300 transition-colors"
+              >
+                Ver más →
+              </a>
+            </div>
           </div>
         </article>
       ))}
