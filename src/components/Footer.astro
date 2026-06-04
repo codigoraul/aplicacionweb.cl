@@ -8,8 +8,15 @@
     </div>
     <div>
       <h4 class="text-white font-semibold text-sm mb-3">Rubros</h4>
-      {['Mecánica','Peluquería Canina','Gimnasios','Salones de Belleza','Ver todos'].map(l => (
-        <a href="#rubros" class="block text-slate-400 text-sm mb-2 hover:text-cyan-400 transition-colors">{l}</a>
+      {[
+        { label: 'Barberías',         href: '/barberias' },
+        { label: 'Mecánica',          href: '/mecanica' },
+        { label: 'Peluquería Canina', href: '/peluqueria-canina' },
+        { label: 'Gimnasios',         href: '/gimnasios' },
+        { label: 'Salón de Belleza',  href: '/salon-de-belleza' },
+        { label: 'Clínicas',          href: '/clinicas' },
+      ].map(l => (
+        <a href={l.href} class="block text-slate-400 text-sm mb-2 hover:text-cyan-400 transition-colors">{l.label}</a>
       ))}
     </div>
     <div>
