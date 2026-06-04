@@ -122,7 +122,7 @@ const canonical = `https://aplicacionweb.cl/${data.slug}`;
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {data.features.map(f => (
             <div class="bg-white rounded-2xl border border-slate-200 p-6 hover:border-cyan-300/50 hover:shadow-md transition-all">
-              <div class="text-3xl mb-4">{f.icon}</div>
+              <div class="w-10 h-10 rounded-xl bg-slate-100 text-[#0a1628] flex items-center justify-center mb-4" set:html={f.icon} />
               <h3 class="font-bold text-slate-900 text-base mb-2">{f.title}</h3>
               <p class="text-slate-500 text-sm leading-relaxed">{f.desc}</p>
             </div>
