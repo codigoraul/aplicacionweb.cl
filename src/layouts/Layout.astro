@@ -3,6 +3,7 @@ interface Props {
   title?: string;
   description?: string;
   canonical?: string;
+  ogImage?: string;
 }
 
 const {
@@ -29,7 +30,7 @@ const keywords = [
   'aplicacionweb.cl',
 ].join(', ');
 
-const ogImage = 'https://aplicacionweb.cl/og-image.png';
+const { ogImage = 'https://aplicacionweb.cl/og-image.png' } = Astro.props;
 ---
 
 <!doctype html>

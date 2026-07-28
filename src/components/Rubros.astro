@@ -36,7 +36,7 @@ const rubros = [
     slug: 'salon-de-belleza',
     title: 'Salón de Belleza',
     desc: 'Agenda, control de servicios por estilista y fidelización de clientes.',
-    img: 'salon.png',
+    img: 'salon.webp',
     color: 'from-amber-700 to-[#0a1628]',
     svg: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,
     features: ['Agenda por estilista', 'Punto de venta', 'Programa de puntos', 'Reportes de ventas'],
@@ -56,7 +56,7 @@ const rubros = [
     slug: 'clinicas',
     title: 'Clínicas & Consultorios',
     desc: 'Agenda médica, ficha de paciente y gestión de horas online.',
-    img: 'clinica.png',
+    img: 'clinica.webp',
     color: 'from-cyan-700 to-[#0a1628]',
     svg: `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
     features: ['Reserva de horas online', 'Ficha de paciente', 'Recetas digitales', 'Recordatorio de citas'],
@@ -85,6 +85,10 @@ const rubros = [
               <img
                 src={`/rubros/${r.img}`}
                 alt={`App web para ${r.title} en Chile – aplicacionweb.cl`}
+                width="400"
+                height="192"
+                loading="lazy"
+                decoding="async"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
             ) : (

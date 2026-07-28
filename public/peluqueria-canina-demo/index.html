@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Demo · App para Peluquería Canina — aplicacionweb.cl</title>
+<meta name="description" content="Demo interactivo de la aplicación web para peluquerías caninas: agenda del día, reservas online, ficha de mascota y galería antes/después." />
+<meta name="robots" content="noindex, follow" />
+<link rel="icon" type="image/png" href="/favicon.png" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#0a1628;--navy2:#0d2137;--cyan:#00e5ff;--cyan2:#00b4d8;
+    --purple:#7c3aed;--pink:#ec4899;--slate:#64748b;--line:#e2e8f0;
+    --ok:#10b981;--warn:#f59e0b;--bg:#f1f5f9;
+  }
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:#0f172a;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+
+  /* Barra demo superior */
+  .demo-bar{background:linear-gradient(90deg,var(--purple),var(--cyan2));color:#fff;font-size:.82rem;font-weight:600;
+    padding:.5rem 1rem;display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap;text-align:center}
+  .demo-bar a{background:rgba(255,255,255,.2);padding:.25rem .8rem;border-radius:999px;font-weight:700}
+  .demo-bar a:hover{background:rgba(255,255,255,.32)}
+
+  /* Layout app */
+  .app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+  aside{background:var(--navy);color:#cbd5e1;padding:1.4rem 1rem;display:flex;flex-direction:column;gap:.3rem;position:sticky;top:0;height:100vh}
+  .brand{display:flex;align-items:center;gap:.6rem;padding:.2rem .4rem 1.3rem;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:1rem}
+  .brand-badge{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--pink),var(--purple));
+    display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .brand b{color:#fff;font-size:.95rem;line-height:1.1;display:block}
+  .brand span{font-size:.72rem;color:#7c8aa0}
+  .nav-item{display:flex;align-items:center;gap:.7rem;padding:.65rem .75rem;border-radius:10px;font-size:.9rem;font-weight:500;
+    color:#cbd5e1;cursor:pointer;transition:background .15s,color .15s}
+  .nav-item:hover{background:rgba(255,255,255,.06);color:#fff}
+  .nav-item.active{background:linear-gradient(135deg,rgba(124,58,237,.35),rgba(0,180,216,.28));color:#fff}
+  .nav-item svg{width:18px;height:18px;flex-shrink:0}
+  .aside-cta{margin-top:auto;background:linear-gradient(135deg,var(--navy2),#10233a);border:1px solid rgba(0,229,255,.25);
+    border-radius:14px;padding:1rem;text-align:center}
+  .aside-cta p{font-size:.78rem;color:#93c5fd;margin-bottom:.6rem}
+  .aside-cta a{display:block;background:var(--ok);color:#fff;font-weight:700;font-size:.82rem;padding:.55rem;border-radius:9px}
+  .aside-cta a:hover{filter:brightness(1.05)}
+
+  main{padding:1.6rem 2rem 3rem;overflow-x:hidden}
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;gap:1rem;flex-wrap:wrap}
+  .topbar h1{font-size:1.5rem;font-weight:800;color:var(--navy)}
+  .topbar .sub{font-size:.85rem;color:var(--slate);margin-top:.15rem}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;font-size:.85rem;padding:.6rem 1.1rem;border-radius:10px;
+    border:none;cursor:pointer;transition:transform .12s,filter .15s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-primary{background:linear-gradient(135deg,var(--purple),var(--cyan2));color:#fff}
+  .btn-ghost{background:#fff;border:1px solid var(--line);color:var(--navy)}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.6rem}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem}
+  .card .k{font-size:.78rem;color:var(--slate);font-weight:600;display:flex;align-items:center;gap:.45rem}
+  .card .v{font-size:1.7rem;font-weight:800;color:var(--navy);margin-top:.35rem}
+  .card .d{font-size:.75rem;margin-top:.15rem;font-weight:600}
+  .up{color:var(--ok)} .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .panel-h{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.3rem;border-bottom:1px solid var(--line)}
+  .panel-h h2{font-size:1.05rem;font-weight:700;color:var(--navy)}
+  .panel-h .pill{font-size:.72rem;font-weight:700;color:var(--cyan2);background:rgba(0,180,216,.1);padding:.25rem .7rem;border-radius:999px}
+
+  .appt{display:grid;grid-template-columns:64px 1fr auto;gap:1rem;align-items:center;padding:.95rem 1.3rem;border-bottom:1px solid #f1f5f9;transition:background .12s}
+  .appt:last-child{border-bottom:none}
+  .appt:hover{background:#f8fafc}
+  .time{font-weight:800;color:var(--navy);font-size:.95rem;text-align:center;line-height:1.1}
+  .time small{display:block;font-size:.68rem;color:var(--slate);font-weight:600}
+  .pet{display:flex;align-items:center;gap:.8rem;cursor:pointer}
+  .avatar{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+  .pet b{font-size:.95rem;color:var(--navy);display:block}
+  .pet span{font-size:.78rem;color:var(--slate)}
+  .pet .svc{font-size:.72rem;color:var(--purple);font-weight:700}
+  .st{display:flex;align-items:center;gap:.6rem}
+  .badge{font-size:.72rem;font-weight:700;padding:.3rem .7rem;border-radius:999px;white-space:nowrap}
+  .b-wait{background:#fef3c7;color:#b45309}
+  .b-prog{background:#dbeafe;color:#1d4ed8}
+  .b-done{background:#d1fae5;color:#047857}
+  .mark{background:var(--navy);color:#fff;border:none;font-size:.74rem;font-weight:700;padding:.4rem .8rem;border-radius:8px;cursor:pointer}
+  .mark:hover{background:var(--purple)}
+  .mark:disabled{opacity:.35;cursor:default}
+
+  .grid2{display:grid;grid-template-columns:1fr;gap:1.4rem;margin-top:1.4rem}
+  @media(min-width:1050px){.grid2{grid-template-columns:1.3fr 1fr}}
+
+  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.8rem;padding:1.2rem}
+  .ga{border-radius:12px;overflow:hidden;border:1px solid var(--line);cursor:pointer}
+  .ga .ba{display:grid;grid-template-columns:1fr 1fr}
+  .ga .ph{height:78px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;position:relative}
+  .ga .ph span{position:absolute;top:4px;left:5px;font-size:.6rem;font-weight:800;background:rgba(0,0,0,.45);color:#fff;padding:1px 5px;border-radius:5px}
+  .ga p{font-size:.76rem;font-weight:600;color:var(--navy);padding:.5rem .6rem;background:#fff}
+
+  /* Reservas view */
+  .book{padding:1.3rem}
+  .steps{display:flex;gap:.5rem;margin-bottom:1.3rem;flex-wrap:wrap}
+  .step{flex:1;min-width:120px;border:1px solid var(--line);border-radius:12px;padding:.8rem;text-align:center}
+  .step b{display:block;font-size:.82rem;color:var(--navy)}
+  .step span{font-size:.72rem;color:var(--slate)}
+  .chips{display:flex;flex-wrap:wrap;gap:.6rem;margin:.4rem 0 1rem}
+  .chip{border:1.5px solid var(--line);border-radius:10px;padding:.55rem .9rem;font-size:.83rem;font-weight:600;cursor:pointer;background:#fff;transition:.12s}
+  .chip:hover{border-color:var(--cyan2)}
+  .chip.sel{border-color:var(--purple);background:rgba(124,58,237,.07);color:var(--purple)}
+  .lbl{font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:.2rem;display:block}
+
+  .hidden{display:none}
+
+  /* Modal */
+  .modal-bg{position:fixed;inset:0;background:rgba(10,22,40,.6);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:1rem;z-index:50}
+  .modal-bg.show{display:flex}
+  .modal{background:#fff;border-radius:18px;max-width:440px;width:100%;overflow:hidden;box-shadow:0 25px 60px rgba(0,0,0,.3);animation:pop .18s ease}
+  @keyframes pop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+  .modal-hero{padding:1.5rem;color:#fff;display:flex;align-items:center;gap:1rem}
+  .modal-hero .avatar{width:60px;height:60px;font-size:2rem;background:rgba(255,255,255,.2)}
+  .modal-hero b{font-size:1.2rem;display:block}
+  .modal-hero span{font-size:.85rem;opacity:.85}
+  .modal-body{padding:1.3rem 1.5rem}
+  .frow{display:flex;justify-content:space-between;padding:.55rem 0;border-bottom:1px solid #f1f5f9;font-size:.88rem}
+  .frow:last-child{border:none}
+  .frow .fk{color:var(--slate);font-weight:600}
+  .frow .fv{color:var(--navy);font-weight:700;text-align:right}
+  .modal-x{margin-left:auto;background:rgba(255,255,255,.25);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;flex-shrink:0}
+
+  /* Toast */
+  .toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:.9rem 1.1rem;border-radius:12px;
+    display:flex;align-items:center;gap:.7rem;box-shadow:0 12px 34px rgba(0,0,0,.3);transform:translateY(140%);transition:transform .35s ease;z-index:60;max-width:330px}
+  .toast.show{transform:translateY(0)}
+  .toast .wa{width:34px;height:34px;border-radius:9px;background:#25d366;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .toast b{font-size:.85rem} .toast p{font-size:.76rem;color:#93c5fd;margin-top:.1rem}
+
+  /* CTA final */
+  .final-cta{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:18px;padding:2rem;margin-top:1.6rem;
+    text-align:center;position:relative;overflow:hidden}
+  .final-cta h3{font-size:1.35rem;font-weight:800;position:relative}
+  .final-cta p{color:#93c5fd;margin:.5rem 0 1.3rem;position:relative;font-size:.92rem}
+  .final-cta .row{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;position:relative}
+  .cta-wa{background:#25d366;color:#fff;font-weight:700;padding:.8rem 1.6rem;border-radius:999px;display:inline-flex;gap:.5rem;align-items:center}
+  .cta-call{background:transparent;border:2px solid var(--cyan2);color:var(--cyan);font-weight:700;padding:.8rem 1.6rem;border-radius:999px}
+
+  @media(max-width:760px){
+    .app{grid-template-columns:1fr}
+    aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap;gap:.4rem}
+    .brand{width:100%;margin-bottom:.4rem;padding-bottom:.8rem}
+    .aside-cta{display:none}
+    .nav-item{flex:1;justify-content:center;padding:.5rem}
+    .nav-item span{display:none}
+    main{padding:1.2rem}
+    .appt{grid-template-columns:52px 1fr;gap:.7rem}
+    .appt .st{grid-column:2;justify-content:flex-start;margin-top:.2rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-bar">
+  🐾 Estás viendo un <b>demo interactivo</b> — así se vería tu peluquería canina.
+  <a href="#solicitar">Quiero esta app →</a>
+</div>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside>
+    <div class="brand">
+      <div class="brand-badge">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M4.5 9.5A2.5 2.5 0 1 0 4.5 4.5a2.5 2.5 0 0 0 0 5zm5-2A2.5 2.5 0 1 0 9.5 2.5a2.5 2.5 0 0 0 0 5zm5 0A2.5 2.5 0 1 0 14.5 2.5a2.5 2.5 0 0 0 0 5zm5 2A2.5 2.5 0 1 0 19.5 4.5a2.5 2.5 0 0 0 0 5zM12 9c-2.5 0-6 3-6 6.5 0 2 1.6 3 3.3 2.4 1.7-.6 3.7-.6 5.4 0C17.4 18.5 19 17.5 19 15.5 19 12 15.5 9 12 9z"/></svg>
+      </div>
+      <div><b>Patitas Felices</b><span>Peluquería Canina</span></div>
+    </div>
+    <div class="nav-item active" data-view="agenda" onclick="setView('agenda',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>Agenda de hoy</span>
+    </div>
+    <div class="nav-item" data-view="reservas" onclick="setView('reservas',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span>Nueva reserva</span>
+    </div>
+    <div class="nav-item" data-view="mascotas" onclick="setView('mascotas',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <span>Fichas de mascota</span>
+    </div>
+    <div class="nav-item" data-view="galeria" onclick="setView('galeria',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span>Galería antes/después</span>
+    </div>
+    <div class="aside-cta">
+      <p>¿Te gusta lo que ves?</p>
+      <a href="#solicitar">Solicitar mi app 🐶</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+    <!-- ===== AGENDA ===== -->
+    <section id="view-agenda">
+      <div class="topbar">
+        <div>
+          <h1>Agenda de hoy</h1>
+          <div class="sub" id="todayStr"></div>
+        </div>
+        <button class="btn btn-primary" onclick="setView('reservas',document.querySelector('[data-view=reservas]'))">+ Nueva reserva</button>
+      </div>
+
+      <div class="cards">
+        <div class="card"><div class="k">🐾 Citas de hoy</div><div class="v" id="cToday">8</div><div class="d up">2 pendientes por atender</div></div>
+        <div class="card"><div class="k">💰 Ingresos del día</div><div class="v" id="cRev">$96.000</div><div class="d up">▲ 18% vs. ayer</div></div>
+        <div class="card"><div class="k">✅ Completadas</div><div class="v" id="cDone">3</div><div class="d" style="color:var(--slate)">de 8 citas</div></div>
+        <div class="card"><div class="k">🔔 Avisos enviados</div><div class="v" id="cNotif">3</div><div class="d" style="color:var(--slate)">a los dueños por WhatsApp</div></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-h"><h2>Citas programadas</h2><span class="pill" id="agCount">8 citas</span></div>
+        <div id="agendaList"></div>
+      </div>
+    </section>
+
+    <!-- ===== RESERVAS ===== -->
+    <section id="view-reservas" class="hidden">
+      <div class="topbar"><div><h1>Nueva reserva</h1><div class="sub">Así de simple reserva un cliente desde su celular.</div></div></div>
+      <div class="panel">
+        <div class="book">
+          <div class="steps">
+            <div class="step"><b>1. Servicio</b><span>Elige el corte</span></div>
+            <div class="step"><b>2. Fecha y hora</b><span>Cupos libres</span></div>
+            <div class="step"><b>3. Mascota</b><span>Datos del peludo</span></div>
+          </div>
+
+          <span class="lbl">Servicio</span>
+          <div class="chips" id="svcChips"></div>
+
+          <span class="lbl">Hora disponible — hoy</span>
+          <div class="chips" id="hourChips"></div>
+
+          <span class="lbl">Nombre de la mascota</span>
+          <input id="petName" placeholder="Ej: Rocky" style="width:100%;padding:.7rem;border:1.5px solid var(--line);border-radius:10px;font-size:.9rem;margin-bottom:1rem"/>
+
+          <button class="btn btn-primary" style="width:100%;justify-content:center;padding:.85rem" onclick="confirmBooking()">Confirmar reserva</button>
+          <p style="font-size:.76rem;color:var(--slate);text-align:center;margin-top:.7rem">El dueño recibe la confirmación por WhatsApp automáticamente.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MASCOTAS ===== -->
+    <section id="view-mascotas" class="hidden">
+      <div class="topbar"><div><h1>Fichas de mascota</h1><div class="sub">Toca una ficha para ver el historial completo.</div></div></div>
+      <div class="panel"><div id="petList"></div></div>
+    </section>
+
+    <!-- ===== GALERIA ===== -->
+    <section id="view-galeria" class="hidden">
+      <div class="topbar"><div><h1>Galería antes / después</h1><div class="sub">Se comparte automáticamente con el dueño al terminar.</div></div></div>
+      <div class="panel">
+        <div class="panel-h"><h2>Resultados recientes</h2><span class="pill">Se envían por WhatsApp</span></div>
+        <div class="gallery" id="galleryGrid"></div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL (visible en todas) -->
+    <div class="final-cta" id="solicitar">
+      <h3>¿Te imaginas tu peluquería funcionando así?</h3>
+      <p>Te entregamos tu propia app configurada en 7 días. Primer mes gratis, sin tarjeta.</p>
+      <div class="row">
+        <a class="cta-wa" href="https://wa.me/56961765268?text=Hola!%20Vi%20el%20demo%20de%20la%20app%20para%20peluquer%C3%ADa%20canina%20y%20quiero%20una%20para%20mi%20negocio" target="_blank" rel="noopener">💬 Pedir mi demo por WhatsApp</a>
+        <a class="cta-call" href="/peluqueria-canina">Ver planes y precios</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- MODAL FICHA -->
+<div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-hero" id="modalHero"></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="wa">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.5-.7-2.4-1.3-3.4-3-.3-.4.3-.4.7-1.3.1-.2 0-.4 0-.5s-.6-1.5-.9-2c-.2-.5-.4-.4-.6-.5h-.5c-.2 0-.5.1-.7.3-.7.8-1 1.7-1 2.7 0 1.6 1.1 3.1 1.3 3.3.2.2 2.3 3.5 5.5 4.7 2 .8 2.8.9 3.8.7.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
+  </div>
+  <div><b id="toastTitle">Aviso enviado</b><p id="toastMsg"></p></div>
+</div>
+
+<script>
+const money = n => '$'+n.toLocaleString('es-CL');
+
+const petColors = {
+  Rocky:'#0ea5e9', Luna:'#ec4899', Coco:'#f59e0b', Max:'#8b5cf6',
+  Nina:'#10b981', Toby:'#ef4444', Kira:'#06b6d4', Bruno:'#6366f1'
+};
+const petEmoji = ['🐕','🐩','🦮','🐕‍🦺','🐶'];
+
+let appts = [
+  {t:'09:00',pet:'Rocky',breed:'Golden Retriever',svc:'Baño + corte',owner:'Camila R.',price:16000,status:'done',e:'🦮'},
+  {t:'09:45',pet:'Luna',breed:'Poodle Toy',svc:'Corte estético',owner:'Ignacio P.',price:14000,status:'done',e:'🐩'},
+  {t:'10:30',pet:'Coco',breed:'Schnauzer',svc:'Baño + deslanado',owner:'Fernanda S.',price:12000,status:'done',e:'🐶'},
+  {t:'11:15',pet:'Max',breed:'Husky Siberiano',svc:'Baño + deslanado',owner:'Diego M.',price:18000,status:'prog',e:'🐕'},
+  {t:'12:00',pet:'Nina',breed:'Bulldog Francés',svc:'Baño + uñas',owner:'Valentina C.',price:10000,status:'wait',e:'🐶'},
+  {t:'12:45',pet:'Toby',breed:'Beagle',svc:'Baño + corte',owner:'Matías L.',price:14000,status:'wait',e:'🐕'},
+  {t:'15:00',pet:'Kira',breed:'Border Collie',svc:'Corte completo',owner:'Antonia V.',price:16000,status:'wait',e:'🦮'},
+  {t:'15:45',pet:'Bruno',breed:'Salchicha',svc:'Baño + uñas',owner:'Josefa T.',price:10000,status:'wait',e:'🐶'},
+];
+
+const pets = {
+  Rocky:{breed:'Golden Retriever',age:'3 años',weight:'28 kg',owner:'Camila Rojas',phone:'+56 9 8765 4321',allergy:'Ninguna',note:'Tranquilo. Le gusta el secado suave.',visits:7,last:'Baño + corte'},
+  Luna:{breed:'Poodle Toy',age:'2 años',weight:'4 kg',owner:'Ignacio Pérez',phone:'+56 9 1234 5678',allergy:'Shampoo con perfume',note:'Corte estilo osito. Usar shampoo hipoalergénico.',visits:12,last:'Corte estético'},
+  Coco:{breed:'Schnauzer',age:'5 años',weight:'8 kg',owner:'Fernanda Soto',phone:'+56 9 5555 1212',allergy:'Ninguna',note:'Deslanar bien la barba.',visits:9,last:'Baño + deslanado'},
+  Max:{breed:'Husky Siberiano',age:'4 años',weight:'25 kg',owner:'Diego Muñoz',phone:'+56 9 4444 9090',allergy:'Ninguna',note:'Suelta mucho pelo. Deslanado profundo.',visits:5,last:'Baño + deslanado'},
+  Nina:{breed:'Bulldog Francés',age:'1 año',weight:'11 kg',owner:'Valentina Castro',phone:'+56 9 3333 7878',allergy:'Piel sensible',note:'Secar bien los pliegues. Es inquieta.',visits:3,last:'Baño + uñas'},
+  Toby:{breed:'Beagle',age:'6 años',weight:'13 kg',owner:'Matías López',phone:'+56 9 2222 3434',allergy:'Ninguna',note:'Cortar uñas con cuidado, se mueve.',visits:8,last:'Baño + corte'},
+  Kira:{breed:'Border Collie',age:'2 años',weight:'18 kg',owner:'Antonia Vera',phone:'+56 9 7777 5656',allergy:'Ninguna',note:'Pelo largo, desenredar antes del baño.',visits:4,last:'Corte completo'},
+  Bruno:{breed:'Salchicha',age:'7 años',weight:'7 kg',owner:'Josefa Tapia',phone:'+56 9 6666 1010',allergy:'Ninguna',note:'Perrito mayor, trato delicado.',visits:11,last:'Baño + uñas'},
+};
+
+const services = [
+  {name:'Baño + corte',price:14000},{name:'Corte estético',price:14000},
+  {name:'Baño + deslanado',price:12000},{name:'Baño + uñas',price:10000},{name:'Corte completo',price:16000},
+];
+const freeHours = ['10:30','13:30','16:30','17:15','18:00'];
+
+const statusMap = {wait:['b-wait','Por atender'],prog:['b-prog','En proceso'],done:['b-done','Lista ✓']};
+
+/* ---- Agenda render ---- */
+function renderAgenda(){
+  const list = document.getElementById('agendaList');
+  list.innerHTML = appts.map((a,i)=>{
+    const [cls,label]=statusMap[a.status];
+    const btn = a.status==='done'
+      ? `<button class="mark" disabled>Avisado ✓</button>`
+      : `<button class="mark" onclick="markReady(${i})">Marcar lista</button>`;
+    return `<div class="appt">
+      <div class="time">${a.t.split(':')[0]}:${a.t.split(':')[1]}<small>hrs</small></div>
+      <div class="pet" onclick="openPet('${a.pet}')">
+        <div class="avatar" style="background:${petColors[a.pet]}22">${a.e}</div>
+        <div><b>${a.pet}</b> <span>· ${a.breed}</span><div class="svc">${a.svc} · ${money(a.price)}</div><span>👤 ${a.owner}</span></div>
+      </div>
+      <div class="st"><span class="badge ${cls}">${label}</span>${btn}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('agCount').textContent = appts.length+' citas';
+  const done = appts.filter(a=>a.status==='done').length;
+  document.getElementById('cDone').textContent = done;
+  document.getElementById('cNotif').textContent = done;
+  document.getElementById('cToday').textContent = appts.length;
+  document.getElementById('cRev').textContent = money(appts.reduce((s,a)=>s+a.price,0));
+}
+
+function markReady(i){
+  appts[i].status='done';
+  renderAgenda();
+  const a=appts[i];
+  showToast('WhatsApp enviado a '+a.owner, `"Hola! ${a.pet} ya está listo/a para retirar en Patitas Felices 🐾"`);
+}
+
+/* ---- Pet modal ---- */
+function openPet(name){
+  const p=pets[name]; const a=appts.find(x=>x.pet===name)||{};
+  document.getElementById('modalHero').style.background=`linear-gradient(135deg, ${petColors[name]}, #0a1628)`;
+  document.getElementById('modalHero').innerHTML=`
+    <div class="avatar">${a.e||'🐶'}</div>
+    <div><b>${name}</b><span>${p.breed} · ${p.age}</span></div>
+    <button class="modal-x" onclick="closeModal()">✕</button>`;
+  document.getElementById('modalBody').innerHTML=`
+    <div class="frow"><span class="fk">Dueño/a</span><span class="fv">${p.owner}</span></div>
+    <div class="frow"><span class="fk">Teléfono</span><span class="fv">${p.phone}</span></div>
+    <div class="frow"><span class="fk">Peso</span><span class="fv">${p.weight}</span></div>
+    <div class="frow"><span class="fk">Alergias</span><span class="fv" style="color:${p.allergy==='Ninguna'?'#047857':'#b45309'}">${p.allergy}</span></div>
+    <div class="frow"><span class="fk">Visitas</span><span class="fv">${p.visits} · última: ${p.last}</span></div>
+    <div class="frow"><span class="fk">Nota</span><span class="fv" style="max-width:60%;font-weight:500">${p.note}</span></div>`;
+  document.getElementById('modalBg').classList.add('show');
+}
+function closeModal(){document.getElementById('modalBg').classList.remove('show');}
+
+/* ---- Pet list ---- */
+function renderPets(){
+  document.getElementById('petList').innerHTML = Object.keys(pets).map(name=>{
+    const p=pets[name]; const a=appts.find(x=>x.pet===name)||{e:'🐶'};
+    return `<div class="appt" style="grid-template-columns:1fr auto" onclick="openPet('${name}')">
+      <div class="pet"><div class="avatar" style="background:${petColors[name]}22">${a.e}</div>
+      <div><b>${name}</b> <span>· ${p.breed}</span><span style="display:block">👤 ${p.owner} · ${p.visits} visitas</span></div></div>
+      <div class="st"><span class="badge b-prog">Ver ficha →</span></div></div>`;
+  }).join('');
+}
+
+/* ---- Gallery ---- */
+function renderGallery(){
+  const items=[
+    {pet:'Luna',svc:'Corte osito',c:'#ec4899',e:'🐩'},{pet:'Max',svc:'Deslanado',c:'#8b5cf6',e:'🐕'},
+    {pet:'Coco',svc:'Barba Schnauzer',c:'#f59e0b',e:'🐶'},{pet:'Rocky',svc:'Baño + corte',c:'#0ea5e9',e:'🦮'},
+    {pet:'Kira',svc:'Corte completo',c:'#06b6d4',e:'🦮'},{pet:'Bruno',svc:'Baño + uñas',c:'#6366f1',e:'🐶'},
+  ];
+  document.getElementById('galleryGrid').innerHTML=items.map(i=>`
+    <div class="ga" onclick="showToast('Galería compartida','Las fotos de ${i.pet} se enviaron al dueño por WhatsApp 📸')">
+      <div class="ba">
+        <div class="ph" style="background:${i.c}18"><span>ANTES</span>😟</div>
+        <div class="ph" style="background:${i.c}33"><span>DESPUÉS</span>${i.e}</div>
+      </div>
+      <p>${i.pet} · ${i.svc}</p>
+    </div>`).join('');
+}
+
+/* ---- Booking ---- */
+let selSvc=null, selHour=null;
+function renderBooking(){
+  document.getElementById('svcChips').innerHTML=services.map((s,i)=>
+    `<div class="chip" data-svc="${i}" onclick="pickSvc(${i},this)">${s.name} · ${money(s.price)}</div>`).join('');
+  document.getElementById('hourChips').innerHTML=freeHours.map(h=>
+    `<div class="chip" onclick="pickHour('${h}',this)">${h}</div>`).join('');
+}
+function pickSvc(i,el){selSvc=services[i];document.querySelectorAll('#svcChips .chip').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');}
+function pickHour(h,el){selHour=h;document.querySelectorAll('#hourChips .chip').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');}
+function confirmBooking(){
+  const name=document.getElementById('petName').value.trim();
+  if(!selSvc||!selHour||!name){showToast('Faltan datos','Elige servicio, hora y escribe el nombre de la mascota.');return;}
+  appts.push({t:selHour,pet:name,breed:'Nuevo cliente',svc:selSvc.name,owner:'Cliente demo',price:selSvc.price,status:'wait',e:'🐶'});
+  appts.sort((a,b)=>a.t.localeCompare(b.t));
+  renderAgenda();
+  showToast('Reserva confirmada','La cita de '+name+' a las '+selHour+' se agregó a la agenda ✓');
+  selSvc=selHour=null;document.getElementById('petName').value='';
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));
+  setTimeout(()=>setView('agenda',document.querySelector('[data-view=agenda]')),900);
+}
+
+/* ---- Toast ---- */
+let toastT;
+function showToast(title,msg){
+  document.getElementById('toastTitle').textContent=title;
+  document.getElementById('toastMsg').textContent=msg;
+  const t=document.getElementById('toast');t.classList.add('show');
+  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),4200);
+}
+
+/* ---- Views ---- */
+function setView(v,el){
+  ['agenda','reservas','mascotas','galeria'].forEach(x=>
+    document.getElementById('view-'+x).classList.toggle('hidden',x!==v));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el)el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ---- Init ---- */
+document.getElementById('todayStr').textContent =
+  new Date().toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'}).replace(/^\w/,c=>c.toUpperCase());
+renderAgenda();renderPets();renderGallery();renderBooking();
+</script>
+</body>
+</html>
